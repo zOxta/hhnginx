@@ -29,7 +29,7 @@ echo -e "${COLOR_NONE}"
 # Basic Packages
 echo -e "${COLOR_COMMENT}"
 echo "=============================="
-echo "= Baic Packages              ="
+echo "= Basic Packages              ="
 echo "=============================="
 echo -e "${COLOR_NONE}"
 sudo apt-get update
