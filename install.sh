@@ -1,18 +1,16 @@
 #!/bin/bash
 
-# Author: @kernelcurry
-# http://github.com/kernelcurry
-# Author: @chuckreynolds
-# http://github.com/chuckreynolds
+# Authors: @kernelcurry, @chuckreynolds
+# URLs: http://github.com/kernelcurry, http://github.com/chuckreynolds
 
-# Get Ubuntu version name
+# Retrieve Ubuntu version name
 VERSION=`lsb_release -c -s`
 
 # Variables for colored output
 COLOR_INFO='\e[1;34m'
 COLOR_COMMENT='\e[0;33m'
 COLOR_NOTICE='\e[1;37m'
-COLOR_NONE='\e[0m' # No Color
+COLOR_NONE='\e[0m'
 
 # Intro
 echo -e "${COLOR_INFO}"
@@ -22,14 +20,14 @@ echo "=           Nginx            ="
 echo "=============================="
 echo "= This script is to be used  ="
 echo "= to install HHVM and HACK   ="
-echo "= on Ubuntu                  ="
+echo "= using apt-get              ="
 echo "=============================="
 echo -e "${COLOR_NONE}"
 
 # Basic Packages
 echo -e "${COLOR_COMMENT}"
 echo "=============================="
-echo "= Basic Packages              ="
+echo "= Basic Packages             ="
 echo "=============================="
 echo -e "${COLOR_NONE}"
 sudo apt-get update
