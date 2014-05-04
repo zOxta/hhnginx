@@ -71,7 +71,7 @@ echo "=============================="
 echo "= Nginx Config               ="
 echo "=============================="
 echo -e "${COLOR_NONE}"
-cat << EOF | sudo tee -a /etc/nginx/sites-available/wordpress
+cat << EOF | sudo tee -a /etc/nginx/sites-available/mainsite
 server {
     listen 80 default_server;
 
@@ -103,7 +103,7 @@ server {
 }
 EOF
 sudo rm /etc/nginx/sites-enabled/default
-sudo ln -s /etc/nginx/sites-available/wordpress /etc/nginx/sites-enabled/wordpress
+sudo ln -s /etc/nginx/sites-available/mainsite /etc/nginx/sites-enabled/mainsite
 sudo service nginx reload
 
 echo -e "${COLOR_INFO}"
