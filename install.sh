@@ -75,15 +75,15 @@ cat << EOF | sudo tee -a /etc/nginx/sites-available/mainsite
 server {
     listen 80 default_server;
 
+    server_name localhost;
+
+    charset utf-8;
+
     root /var/www/public;
     index index.html index.htm index.php;
 
-    server_name localhost;
-
     access_log /var/log/nginx/access.log;
     error_log  /var/log/nginx/error.log error;
-
-    charset utf-8;
 
     location / {
         try_files \$uri \$uri/ /index.php?\$query_string;
@@ -94,9 +94,9 @@ server {
 
     error_page 404 /index.php;
 
-    include hhvm.conf;  # The HHVM Magic Here
+    include hhvm.conf;
 
-    # Deny .htaccess file access
+    # deny .htaccess file access
     location ~ /\.ht {
         deny all;
     }
