@@ -91,15 +91,11 @@ server {
 
     location = /favicon.ico { log_not_found off; access_log off; }
     location = /robots.txt  { log_not_found off; access_log off; }
+    location ~ /\. { deny all; log_not_found off; access_log off; }
 
     error_page 404 /index.php;
 
     include hhvm.conf;
-
-    # deny .htaccess file access
-    location ~ /\.ht {
-        deny all;
-    }
 }
 EOF
 sudo rm /etc/nginx/sites-enabled/default
