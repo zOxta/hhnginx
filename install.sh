@@ -73,34 +73,34 @@ echo "=============================="
 echo -e "${COLOR_NONE}"
 cat << EOF | sudo tee -a /etc/nginx/sites-available/mainsite
 server {
-	listen 80 default_server;
+    listen 80 default_server;
 
-	server_name localhost;
+    server_name localhost;
 
-	charset utf-8;
+    charset utf-8;
 
-	root /var/www/public;
-	index index.html index.htm index.php;
+    root /var/www/public;
+    index index.html index.htm index.php;
 
-	location ~* \.(?:ico|css|js|gif|jpe?g|png|svg|html|xml|otf|ttf|eot|woff)$ {
-		expires 30d;
-		access_log off;
-		add_header Cache-Control public;
-	}
+    location ~* \.(?:ico|css|js|gif|jpe?g|png|svg|html|xml|otf|ttf|eot|woff)$ {
+        expires 30d;
+        access_log off;
+        add_header Cache-Control public;
+    }
 
-	location / {
-		try_files \$uri \$uri/ /index.php?\$query_string;
-	}
+    location / {
+        try_files \$uri \$uri/ /index.php?\$query_string;
+    }
 
-	location = /favicon.ico { log_not_found off; access_log off; }
-	location = /robots.txt  { log_not_found off; access_log off; }
-	location ~ /\. { deny all; log_not_found off; access_log off; }
+    location = /favicon.ico { log_not_found off; access_log off; }
+    location = /robots.txt  { log_not_found off; access_log off; }
+    location ~ /\. { deny all; log_not_found off; access_log off; }
 
-	access_log /var/log/nginx/access.log;
-	error_log  /var/log/nginx/error.log error;
-	error_page 404 /index.php;
+    access_log /var/log/nginx/access.log;
+    error_log  /var/log/nginx/error.log error;
+    error_page 404 /index.php;
 
-	include hhvm.conf;
+    include hhvm.conf;
 }
 EOF
 sudo rm /etc/nginx/sites-enabled/default
