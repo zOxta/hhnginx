@@ -71,7 +71,7 @@ echo "=============================="
 echo "= Nginx Config               ="
 echo "=============================="
 echo -e "${COLOR_NONE}"
-cat << EOF | sudo tee -a /etc/nginx/sites-available/mainsite
+cat << EOF | sudo tee -a /etc/nginx/sites-available/wordpress
 server {
     listen 80 default_server;
 
@@ -89,7 +89,7 @@ server {
     }
 
     location / {
-        try_files \$uri \$uri/ /index.php?\$query_string;
+        try_files $uri $uri/ /index.php?q=$uri&$args;
     }
 
     location = /favicon.ico { log_not_found off; access_log off; }
@@ -104,7 +104,7 @@ server {
 }
 EOF
 sudo rm /etc/nginx/sites-enabled/default
-sudo ln -s /etc/nginx/sites-available/mainsite /etc/nginx/sites-enabled/mainsite
+sudo ln -s /etc/nginx/sites-available/wordpress /etc/nginx/sites-enabled/wordpress
 sudo service nginx reload
 
 echo -e "${COLOR_INFO}"
