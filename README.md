@@ -1,7 +1,7 @@
-## HHVM Hack Nginx
+## HHVM Hack and Nginx
 
 Install script for Ubuntu servers installing HHVM, Nginx and configures it for you.
-Add myslql-server and it's goof for WordPress too
+Add myslql-server and it's made for WordPress.
 
 #### Install 
 1. copy `install.sh` to server
