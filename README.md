@@ -9,3 +9,7 @@ Add myslql-server and it's made for WordPress.
 3. run `./install.sh` with a user with `sudo` access
 4. remove `install.sh` from server
 5. install mysql `sudo apt-get install mysql-server`
+
+##### Optional stuff
+- [https://gist.github.com/chuckreynolds/11250053](permissions file to run to fix permissions on files and directories)
+- [https://gist.github.com/chuckreynolds/939d95a9eb4f39cc44ed](nginx.conf file used for wordpress sites)
