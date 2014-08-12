@@ -68,18 +68,20 @@ sudo /usr/bin/update-alternatives --install /usr/bin/php php /usr/bin/hhvm 60
 # Nginx Config
 echo -e "${COLOR_COMMENT}"
 echo "=============================="
-echo "= Nginx Config               ="
+echo "= Nginx Config For Laravel   ="
 echo "=============================="
 echo -e "${COLOR_NONE}"
-cat << EOF | sudo tee -a /etc/nginx/sites-available/wordpress
+sudo rm /etc/nginx/sites-available/laravel-webapp
+cat << EOF | sudo tee -a /etc/nginx/sites-available/laravel-webapp
 server {
     listen 80 default_server;
 
     server_name localhost;
 
     charset utf-8;
-
-    root /var/www/public;
+    
+    # laravel
+    root /var/www/laravel-webapp/public;
     index index.html index.htm index.php;
 
     location ~* \.(?:ico|css|js|gif|jpe?g|png|svg|html|xml|otf|ttf|eot|woff)$ {
@@ -87,10 +89,11 @@ server {
         access_log off;
         add_header Cache-Control public;
     }
-
+    
+    # laravel config
     location / {
-        try_files \$uri \$uri/ /index.php?q=\$uri&\$args;
-    }
+        try_files \$uri \$uri/ /index.php?\$query_string;
+    }    
 
     location = /favicon.ico { log_not_found off; access_log off; }
     location = /robots.txt  { log_not_found off; access_log off; }
@@ -103,9 +106,38 @@ server {
     include hhvm.conf;
 }
 EOF
+sudo mkdir -p /var/www
 sudo rm /etc/nginx/sites-enabled/default
-sudo ln -s /etc/nginx/sites-available/wordpress /etc/nginx/sites-enabled/wordpress
+sudo ln -s /etc/nginx/sites-available/laravel-webapp /etc/nginx/sites-enabled/laravel-webapp
 sudo service nginx reload
+
+echo -e "${COLOR_INFO}"
+echo "=============================="
+echo "= Install composer           ="
+echo "=============================="
+echo -e "${COLOR_NONE}"
+
+curl -sS https://getcomposer.org/installer | php
+sudo mv composer.phar /usr/local/bin/composer
+
+echo -e "${COLOR_INFO}"
+echo "=============================="
+echo "= Installing Laravel         ="
+echo "=============================="
+echo -e "${COLOR_NONE}"
+
+wget http://laravel.com/laravel.phar
+sudo mv laravel.phar /usr/local/bin/laravel
+sudo chmod 755 /usr/local/bin/laravel
+
+echo -e "${COLOR_INFO}"
+echo "=============================="
+echo "= Creating New Laravel App   ="
+echo "=============================="
+echo -e "${COLOR_NONE}"
+cd /var/www
+laravel new laravel-webapp
+sudo chmod -R 777 /var/www/laravel-webapp/app/storage
 
 echo -e "${COLOR_INFO}"
 echo "=============================="
